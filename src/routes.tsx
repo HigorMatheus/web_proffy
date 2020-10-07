@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom'
 import Landing from './pages/Landing';
-import TeacherForm from './pages/TeacherForm';
+import TeacherForm from './pages/TeacherForm/index';
 import TeacherList from './pages/TeacherList';
 // import { Container } from './styles';
 

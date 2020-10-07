@@ -1,33 +1,50 @@
 import React from 'react';
 import whatsappIcon from '../../assets/images/icons/whatsapp.svg'
+import api from '../../services/api';
 // import { Container } from './styles';
 
 import './styles.css'
 
-const TeacherItem: React.FC = () => {
+export interface ITeacher{
+    id: number,
+    subject: String,
+    cost: Number,
+    name: String,
+    avatar: string,
+    whatsapp: String,
+    bio: String
+}
+ interface TeacherItemPropos{
+    teacher: ITeacher
+}
+
+
+
+const TeacherItem: React.FC<TeacherItemPropos> = ({teacher}) => {
+    function createNewConnection(){
+        api.post('connections',{
+            user_id: teacher.id
+        })
+    }
   return (
     <article className="teacher-item" >
     <header>
-        <img src="https://avatars0.githubusercontent.com/u/53712358?s=460&u=f8ea95268d66fe0a2e378b968218f32259dd0b1a&v=4" alt="Higor Matheus"/>
+        <img src={teacher.avatar} alt="Higor Matheus"/>
         <div>
-            <strong>Higor Matheus</strong>
-            <span>fisica</span>
+            <strong>{teacher.name}</strong>
+            <span>{teacher.subject}</span>
         </div>
     </header>
-    <p>
-    Entusiasta das melhores tecnologias de química avançada.
-    <br/> <br/>
-    Apaixonado por explodir coisas em laboratório e por mudar a vida das pessoas através de experiências. Mais de 200.000 pessoas já passaram por uma das minhas explosões.
-    </p>
+    <p>{teacher.bio} </p>
     <footer>
         <p>
             preço/hora 
-            <strong>R$ 80,00</strong>
+            <strong>R$ {teacher.cost}</strong>
         </p>
-        <button type="button">
+        <a target="_blank" onClick={createNewConnection} href={`https://wa.me/${teacher.whatsapp}`} >
             <img src={whatsappIcon} alt="whatsapp"/>
             Entrar em contato
-        </button>
+        </a>
     </footer>
 </article>
     );
